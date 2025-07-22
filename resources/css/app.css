@@ -1,0 +1,23 @@
+@import 'bootstrap';
+.main-container{
+    min-height: 45vh;
+    background-image: url('https://www.pixartprinting.it/blog/wp-content/uploads/2022/11/IMMAGINE-1.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.backdrop{
+position: absolute;
+z-index: 20;
+left: 0;
+right: 0;
+top: 0;
+bottom: 0;
+background-color:rgba(0, 0, 0, 0.445);
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.action-btn{
+z-index: 25;
+}
