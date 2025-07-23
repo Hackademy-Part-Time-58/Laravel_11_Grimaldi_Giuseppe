@@ -3,7 +3,7 @@
     <x-section-title sectionTitle="Modifica del tuo articolo" />
     <div class="container  py-5">
         <div class="row justify-content-center align-items-center">
-            <form class="col-md-6" action="{{route('articles.update',$article)}}" method="POST" enctype="multipart/   form-data">
+            <form class="col-md-6" action="{{route('articles.update',$article)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div>
@@ -26,7 +26,7 @@
                     <input class="form-control form-control-lg" name="image" type="file">
                 </div>
                 @error('image')<span class="text-danger">{{ $message }}</span>@enderror
-                <button type="submit" class="btn btn-primary">Aggorna articolo</button>
+                <button type="submit" class="btn btn-primary">Aggiorna articolo</button>
             </form>
         </div>
 </x-main-layout>

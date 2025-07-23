@@ -49,7 +49,7 @@ class ArticleController extends Controller
                 $newArticle->category_id=$request->category;
                 $newArticle->save();
             } catch (\Throwable $th) {
-
+                dd($th->getMessage());
             }
 
         }
@@ -82,9 +82,9 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        if (Auth::user()->id != $article->user_id) {
-           return redirect()->route('homepage')->with('warning','Non sei il proprietario di questo articolo impossibile proseguire');
-        }
+        // if (Auth::user()->id != $article->user_id) {
+        //    return redirect()->route('homepage')->with('warning','Non sei il proprietario di questo articolo impossibile proseguire');
+        // }
         $url=null;
          if($request->hasFile('image') && $request->file('image')->isValid() ){
             $ext=$request->file('image')->extension();
@@ -111,10 +111,6 @@ class ArticleController extends Controller
         // }
         $article->delete();
         return redirect()->back()->with('success','Articolo eliminato con successo');
-          dd([
-        'auth_id' => Auth::id(),
-        'article_user_id' => $article->user_id,
-    ]);
     }
     public function dashboard(){
         // $userArticles=Article::where('user_id',Auth::user()->id);
