@@ -26,6 +26,25 @@
                     <input class="form-control form-control-lg" name="image" type="file">
                 </div>
                 @error('image')<span class="text-danger">{{ $message }}</span>@enderror
+                <div class="mb-3">
+                    <label for="categories" class="form-label">Scegli una categoria</label>
+                    <select name="categories[]" class="form-select" multiple>
+                        @foreach ($categories as $category)
+                        @if($article->categories->contains($category->id))
+                        <option selected value="{{$category->id}}">{{$category->name}}</option>
+                        @else
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endif
+                        @endforeach
+                        <!-- @foreach ($categories as $category)
+                        <option value="{{ $category->id }}"
+                            {{ $article->categories->contains($category->id) ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                        @endforeach -->
+
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Aggiorna articolo</button>
             </form>
         </div>

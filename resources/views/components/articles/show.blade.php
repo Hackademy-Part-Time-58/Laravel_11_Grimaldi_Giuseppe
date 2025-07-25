@@ -10,7 +10,16 @@
             </div>
             <div class="col-md-8 flex-column d-flex g-3 justify-content-around">
             <h4>Autore: {{$article->user->name}}</h4>
-            <p class="fs-5">{{$article->category->name}}</p>
+            <div class="position-relative">
+
+                <div class="col-md-2 m-2 d-flex">
+                @forelse($article->categories as $category)
+                    <span class="badge mb-1"style="{{ $category->color }}">{{ $category->name }}</span>
+                @empty
+                    <span class="badge bg-secondary">Nessuna categoria</span>
+                @endforelse
+            </div>
+            </div>
             <p class="fs-5">{{$article->content}}</p>
             <p>Data di pubblicazione: {{$article->created_at}}</p>
             </div>

@@ -12,7 +12,7 @@
                 @error('title')<span class="text-danger">{{ $message }}</span>@enderror
 
                 <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" name="content" style="height: 300px">{{ old('content') }}</textarea>
+                    <textarea class="form-control" placeholder="Leave a comment here" name="content" style="height: 300px">{{old('content')}}</textarea>
                     <label for="floatingTextarea2">Testo dell'articolo</label>
                 </div>
                 @error('content')<span class="text-danger">{{ $message }}</span>@enderror
@@ -22,9 +22,8 @@
                 </div>
                 @error('image')<span class="text-danger">{{ $message }}</span>@enderror
                 <div class="mb-3">
-                    <label for="category" class="form-label">Scegli una categoria</label>
-                    <select name="category" class="form-select">
-                        <option>Scegli un opzione</option>
+                    <label for="categories" class="form-label">Scegli una categoria</label>
+                    <select name="categories[]" class="form-select"multiple>
                         @foreach($categories as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>
                         @endforeach

@@ -35,6 +35,7 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
+        // dd($request->categories);
         if($request->hasFile('image') && $request->file('image')->isValid() ){
             $ext=$request->file('image')->extension();
             $fileName=uniqid(). "." . $ext;
@@ -46,8 +47,8 @@ class ArticleController extends Controller
                 $newArticle->content=$request->content;
                 $newArticle->user_id=Auth::user()->id;
                 $newArticle->image=$url;
-                $newArticle->category_id=$request->category;
                 $newArticle->save();
+                $newArticle->categories()->attach($request->categories);
             } catch (\Throwable $th) {
                 dd($th->getMessage());
             }
@@ -74,7 +75,8 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('components.articles.edit',compact('article'));
+        $categories=Category::all();
+        return view('components.articles.edit',compact('article','categories'));
     }
 
     /**
@@ -84,7 +86,7 @@ class ArticleController extends Controller
     {
         // if (Auth::user()->id != $article->user_id) {
         //    return redirect()->route('homepage')->with('warning','Non sei il proprietario di questo articolo impossibile proseguire');
-        // }
+        // dd($article->categories());
         $url=null;
          if($request->hasFile('image') && $request->file('image')->isValid() ){
             $ext=$request->file('image')->extension();
@@ -97,6 +99,9 @@ class ArticleController extends Controller
                 'content'=>$request->content,
                 'image'=>$url ? $url : $article->image
             ]);
+            $article->categories()->detach();
+            $article->categories()->attach($request->categories);
+
 
         return redirect()->route('dashboard')->with('success','Articolo modificato con successo');
 }
@@ -109,6 +114,7 @@ class ArticleController extends Controller
         //  if (Auth::user()->id != $article->user_id) {
         //    return redirect()->route('homepage')->with('warning','Non sei il proprietario di questo articolo impossibile proseguire');
         // }
+        $article->categories()->detach();
         $article->delete();
         return redirect()->back()->with('success','Articolo eliminato con successo');
     }

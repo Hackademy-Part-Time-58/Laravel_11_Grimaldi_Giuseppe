@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
@@ -12,14 +13,13 @@ class Article extends Model
         'content',
         'image',
         'user_id',
-        'category_id'
 
     ];
 
     public function user(){
         return $this->belongsTo(User::class);
     }
-    public function category(){
-        return $this->belongsTo(Category::class);
+    public function categories(){
+        return $this->belongsToMany(Category::class);
     }
 }
